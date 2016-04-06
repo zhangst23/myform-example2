@@ -7,13 +7,47 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<% if user_signed_in? %>
-		Welcome, <%= current_user.email %>
-		<%= link_to "Log out", destroy_user_session_path, method: :delete %>
-	<% else %>
-		<%= link_to "Sign In", new_user_session_path %>
-	<% end %>
-<%= yield %>
+<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Home</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+          
+          <% if user_signed_in? %>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <button type="button" class="btn btn-default navbar-btn">Log Out</button>
+            <% end %>
+
+              <div class="navbar-right navbar-brand">Hello, <%= current_user.email %></div>
+          <% else %>
+              <%= link_to new_user_session_path do %>
+                <button type="button" class="btn btn-default navbar-btn">Log In</button>
+              <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <%= yield %>  
+    </div>
+    <div class="col-md-2">
+    <br>
+      <%= link_to 'New Question', new_question_path, class: "btn btn-success" %>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>

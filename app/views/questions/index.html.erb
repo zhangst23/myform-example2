@@ -1,43 +1,37 @@
-<h1>Forum</h1>
-
 <%= flash[:alert] %>
-
-<%= link_to 'New Question', new_question_path %>
-<br>
-<br>
-
-
-
-<br>
 
 
 <% @questions.each do |question| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <h3><%= question.content %></h3>
-      <%= time_ago_in_words(question.created_at) %> ago by 
-    <br>
-
+      <%= time_ago_in_words(question.created_at) %> ago 
     </div>
     <div class="panel-footer">
       <% if can? :update, question %>
         <%= link_to 'Edit', edit_question_path(question) %>
       <% end %>
-
       <% if can? :update, question %>
         <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-      
+      <% end %>     
       <% if question.answers.any? %>
-        <h4>Answers</h4>
         <%= render question.answers %>
-      <% end %>
-      <br>
-      <p>Add Answer</p>
-      <%= form_for([question, question.answers.build]) do |f| %>
-        <%= f.text_area :content %>
-        <%= submit_tag "Add" %>
-      <% end %>
+      <% end %> 
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="input-group">
+            <%= form_for([question, question.answers.build]) do |f| %>
+              <%= f.text_area :content, placeholder: "添加回答..."%>
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit_tag">Add Answer</button>
+              </span>
+            <% end %>
+            
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <br>
 <% end %>
+

@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 
 
 gem 'devise'
+gem 'cancancan'
 
-
-
-
+gem 'bootstrap-sass'
 
 
 

@@ -1,28 +1,27 @@
-== README
+<% @questions.each do |question| %>
+  <div style="border: 1px solid black; background-color: #add8e6;">
+    <h3><%= question.content %></h3>
+    <%= time_ago_in_words(question.created_at) %> ago by 
+    <br>
+    <% if can? :update, question %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+    <% end %>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+    <% if can? :update, question %>
+      <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    
+    <% if question.answers.any? %>
+      <h4>Answers</h4>
+      <%= render question.answers %>
+    <% end %>
+    <br>
+    <p>Add Answer</p>
+    <%= form_for([question, question.answers.build]) do |f| %>
+      <%= f.text_area :content %>
+      <%= submit_tag "Add" %>
+    <% end %>
+  </div>
+<br>
+<br>
+<% end %>

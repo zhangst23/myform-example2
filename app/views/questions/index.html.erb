@@ -6,19 +6,21 @@
     <div class="panel-body">
       <h3><%= question.content %></h3>
       <%= time_ago_in_words(question.created_at) %> ago 
-    </div>
-    <div class="panel-footer">
+    
       <% if can? :update, question %>
         <%= link_to 'Edit', edit_question_path(question) %>
       <% end %>
       <% if can? :update, question %>
         <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>     
-      <% if question.answers.any? %>
-        <%= render question.answers %>
-      <% end %> 
+    
+      </div>
+    <div class="panel-footer">
       <div class="row">
         <div class="col-lg-6">
+        <% if question.answers.any? %>
+          <%= render question.answers %>
+        <% end %> 
           <div class="input-group">
             <%= form_for([question, question.answers.build]) do |f| %>
               <%= f.text_area :content, placeholder: "添加回答..."%>
@@ -34,4 +36,4 @@
   </div>
   <br>
 <% end %>
-
+<%= paginate @questions %>

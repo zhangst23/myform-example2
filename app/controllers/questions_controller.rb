@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all.order(created_at: :desc)
+    @questions = Question.all.order(created_at: :desc).page(params[:page]).per(15)
   end
 
   # GET /questions/1
@@ -27,7 +27,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @user = current_user
-    @question = @user.question.build(question_params)
+    @question = @user.questions.build(question_params)
 
     respond_to do |format|
       if @question.save

@@ -5,7 +5,7 @@ gem 'devise'
 gem 'cancancan'
 
 gem 'bootstrap-sass'
-
+gem 'kaminari'
 
 
 
